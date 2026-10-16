@@ -44,6 +44,11 @@ export class SearchPage {
     };
   }
 
+  async submitSearch(type: SearchType, value: string): Promise<void> {
+    await this.getInput(type).fill(value);
+    await this.page.locator('#btnSzukaj').click();
+  }
+
   async captureMessage(): Promise<string> {
     await this.messageLocator.waitFor();
     return await this.messageLocator.innerText();
