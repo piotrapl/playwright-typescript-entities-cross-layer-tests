@@ -1,3 +1,4 @@
+import { Locator } from '@playwright/test';
 import { SearchPage, SearchType } from '../pages/search.page';
 import { NegativeAssert } from '../assertions/negative.assert';
 
@@ -16,5 +17,12 @@ export class NegativeFlow {
       apiResponse,
       this.searchPage.messageLocator
     );
+  }
+
+  async validateInput(type: SearchType, value: string): Promise<Locator> {
+    await this.searchPage.open();
+    await this.searchPage.submitSearch(type, value);
+
+    return this.searchPage.messageLocator;
   }
 }
