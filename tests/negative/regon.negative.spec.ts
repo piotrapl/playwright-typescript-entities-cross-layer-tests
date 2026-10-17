@@ -24,3 +24,17 @@ test('REGON invalid length: 1234567891', async ({ negativeFlow }) => {
   await expect(message).toBeVisible();
   await expect(message).toContainText('Numer REGON ma długość 9 lub 14 znaków');
 });
+
+test('REGON validation - 8 digits', async ({ negativeFlow }) => {
+  const message = await negativeFlow.validateInput('regon', '12345678');
+
+  await expect(message).toBeVisible();
+  await expect(message).toContainText('Numer REGON ma długość 9 lub 14 znaków');
+});
+
+test('REGON validation - invalid 9 digits', async ({ negativeFlow }) => {
+  const message = await negativeFlow.validateInput('regon', '123456789');
+
+  await expect(message).toBeVisible();
+  await expect(message).toContainText('Wprowadzony numer REGON jest nieprawidłowy');
+});
